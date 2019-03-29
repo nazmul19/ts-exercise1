@@ -25,3 +25,41 @@ class Fruit {
 let apple = new Fruit("My Apple", 120);
 console.log(apple);
 console.log(apple.toString());
+
+interface EventProcessor {
+  process();
+}
+
+class AccountEventProcessor implements EventProcessor {
+  process() {
+    console.log("Processing Account Events");
+  }
+}
+
+class ContactEventProcessor implements EventProcessor {
+  process() {
+    console.log("Processing Contact Events");
+  }
+}
+
+class Processors {
+  processes: EventProcessor[];
+  constructor(tasks: EventProcessor[]) {
+    this.processes = tasks;
+  }
+
+  runAll() {
+    console.log("Running All Proceess");
+    this.processes.forEach(proc => {
+      proc.process();
+    });
+  }
+}
+
+let accountProc = new AccountEventProcessor();
+let contactProc = new ContactEventProcessor();
+type procListType = Array<EventProcessor>;
+let procList: procListType = [accountProc, contactProc];
+console.log(procList);
+let processors = new Processors(procList);
+processors.runAll();
